@@ -1,4 +1,6 @@
-﻿namespace Lab3;
+﻿using Utils;
+
+namespace Lab3;
 
 public class Algo
 {
@@ -125,19 +127,32 @@ public class Algo
     {
         var keys = CreateKeys(key, encrypt);
 
+        Console.WriteLine("Keys");
+        foreach (var k in keys)
+        {
+            Console.WriteLine(PrintHelper.ToFancyByteArray(key));
+        }
+        Console.WriteLine();
+
         var t1 = Permutate(input, Constants.InitialPermutationTable.Take(32), true);
 
         var t2 = Permutate(input, Constants.InitialPermutationTable.Skip(32), true);
 
+        Console.WriteLine("Rounds");
         for (var i = 0; i < 15; i++)
         {
             var temp = t2;
             t2 = Round(t2, keys[i]) ^ t1;
             t1 = temp;
+
+            Console.WriteLine($"{PrintHelper.ToFancyByteArray(t1)}, {PrintHelper.ToFancyByteArray(t2)}");
         }
 
         t1 = Round(t2, keys[15]) ^ t1;
+        Console.WriteLine(PrintHelper.ToFancyByteArray(t1));
 
         return InversePermutation(t1, t2, Constants.ReverseInitialPermutationTable);
     }
+
+    
 }
