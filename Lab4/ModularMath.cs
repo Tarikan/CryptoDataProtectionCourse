@@ -1,6 +1,6 @@
 ﻿namespace Lab4;
 
-public class Algo
+public class ModularMath
 {
     public static (int d, int x, int y) GcdEx(int a, int b)
     {
