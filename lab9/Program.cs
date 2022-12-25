@@ -4,4 +4,5 @@ using System.Text;
 var input = "Hello world!";
 var hash = MD5.Calculate(Encoding.ASCII.GetBytes(input));
 
-Console.WriteLine(hash);
+Console.WriteLine($"Input: {input}");
+Console.WriteLine($"hash: {hash}");
