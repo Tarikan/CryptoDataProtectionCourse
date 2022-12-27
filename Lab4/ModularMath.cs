@@ -1,4 +1,6 @@
-﻿namespace Lab4;
+﻿using System.Numerics;
+
+namespace Lab4;
 
 public class ModularMath
 {
@@ -28,7 +30,42 @@ public class ModularMath
         return (a0, x0, y0);
     }
 
+    public static (BigInteger d, BigInteger x, BigInteger y) GcdEx(BigInteger a, BigInteger b)
+    {
+        if (a == 0)
+        {
+            return (b, 0, 1);
+        }
+
+        var a0 = a;
+        var a1 = b;
+        BigInteger x0 = 1;
+        BigInteger x1 = 0;
+        BigInteger y0 = 0;
+        BigInteger y1 = 1;
+
+        while (a1 != 0)
+        {
+            var q = a0 / a1;
+
+            (a0, a1) = (a1, a0 - q * a1);
+            (x0, x1) = (x1, x0 - q * x1);
+            (y0, y1) = (y1, y0 - q * y1);
+        }
+
+        return (a0, x0, y0);
+    }
+
     public static int InverseElement(int a, int n)
+    {
+        var (g, x, y) = GcdEx(a, n);
+
+        var res = (x % n + n) % n;
+
+        return res;
+    }
+
+    public static BigInteger InverseElement(BigInteger a, BigInteger n)
     {
         var (g, x, y) = GcdEx(a, n);
 
